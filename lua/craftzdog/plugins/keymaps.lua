@@ -66,7 +66,7 @@ map({
 	},
 	{ "gD", Snacks.picker.lsp_declarations, desc = "LSP Goto Declaration" },
 	{ "gy", Snacks.picker.lsp_type_definitions, desc = "LSP Goto T[y]pe Definition" },
-	{ "gr", Snacks.picker.lsp_references, desc = "LSP Goto Definition" },
+	{ "gr", Snacks.picker.lsp_references, desc = "LSP References" },
 	{ "K", vim.lsp.buf.hover, desc = "Hover" },
 	{ "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
 	{
