@@ -48,7 +48,6 @@ require("blink.cmp").setup({
 
 	keymap = {
 		preset = "enter",
-		["c-y"] = { "select_and_accept" },
 	},
 
 	appearance = {
