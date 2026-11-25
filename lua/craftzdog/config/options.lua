@@ -28,7 +28,6 @@ vim.opt.completeopt = "menuone,noinsert,noselect" -- Completion options
 vim.opt.pumheight = 10 -- Popup menu height
 vim.opt.pumblend = 10 -- Popup menu transparency
 vim.opt.winborder = "rounded" -- The default border style of floating windows
--- vim.opt.lazyredraw = true                          -- Don't redraw during macros
 vim.opt.laststatus = 3
 
 -- File handling

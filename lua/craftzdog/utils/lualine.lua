@@ -40,28 +40,7 @@ local function get_root()
 	return normalize(get_cwd())
 end
 
---- ⏺ The pretty_path function (lines 82-149) creates a lualine component that displays the current file path in a formatted, condensed way. Here's what it does:
---
--- Options (with defaults):
--- - relative: "cwd" or "root" - determines what the path is relative to
--- - modified_hl: "MatchParen" - highlight group for modified files
--- - directory_hl: "" - highlight group for directory portion
--- - filename_hl: "Bold" - highlight group for filename
--- - modified_sign: "" - symbol appended to modified files
--- - readonly_icon: " 󰌾 " - icon shown for readonly files
--- - length: 3 - max number of path segments to show
---
--- Behavior:
---
--- 1. Makes path relative - Strips the cwd or project root prefix from the absolute path, showing only the relevant portion
--- 2. Truncates long paths - If the path has more segments than length, it shows the first segment, an ellipsis (…), then the last segments. For example: src/…/components/Button.lua
--- 3. Applies highlighting - Different highlight groups for:
---   - Directory portion (dimmer by default)
---   - Filename (bold by default)
---   - Modified files (uses MatchParen highlight)
--- 4. Shows indicators - Appends a modified sign if the buffer is modified, and a readonly icon if the buffer is readonly
--- 5. Windows compatibility - Handles case-insensitive path matching on Windows
-
+---Buffer path relative to the cwd or the project root, with the filename in its own highlight group.
 ---@param opts? {relative: "cwd"|"root", modified_hl: string?, directory_hl: string?, filename_hl: string?, modified_sign: string?, readonly_icon: string?, length: number?}
 function M.pretty_path(opts)
 	opts = vim.tbl_extend("force", {
@@ -157,29 +136,7 @@ function M.pretty_path(opts)
 	end
 end
 
--- ⏺ The root_dir function (lines 152-193) creates a lualine component that displays the project root directory name with configurable visibility based on its relationship to the current working directory.
---
---   Options (with defaults):
---   - cwd: false - show when root equals cwd
---   - subdirectory: true - show when root is a subdirectory of cwd
---   - parent: true - show when root is a parent of cwd
---   - other: true - show when root and cwd are unrelated
---   - icon: "󱉭 " - icon displayed before the directory name
---   - color: function returning Special highlight color
---
---   Behavior:
---
---   1. Determines relationship between the project root and cwd, then decides whether to show the component based on that relationship:
---     - root == cwd: Only shows if opts.cwd is true
---     - root is inside cwd (e.g., cwd=~/projects, root=~/projects/myapp): Shows if opts.subdirectory is true
---     - root is parent of cwd (e.g., cwd=~/projects/myapp/src, root=~/projects/myapp): Shows if opts.parent is true
---     - unrelated paths: Shows if opts.other is true
---   2. Returns a lualine component table with:
---     - A function that renders the icon + directory basename
---     - A cond function that hides the component when the relationship option is disabled
---     - The configured color
---
---   Use case: This lets you show the project root name in your statusline only in certain situations—for example, hiding it when you're already at the root (since it's obvious), but showing it when you've cd'd into a subdirectory.
+---Project root name, shown whenever the root differs from the cwd.
 ---@param opts? {cwd:false, subdirectory: true, parent: true, other: true, icon?:string}
 function M.root_dir(opts)
 	opts = vim.tbl_extend("force", {

@@ -1,4 +1,4 @@
-gh = function(x)
+local function gh(x)
 	return "https://github.com/" .. x
 end
 
@@ -7,7 +7,6 @@ vim.pack.add({
 	{ src = gh("craftzdog/solarized-osaka.nvim") },
 	{ src = gh("nvim-mini/mini.icons") },
 	{ src = gh("folke/snacks.nvim") },
-	{ src = gh("folke/trouble.nvim") },
 	{ src = gh("nvim-lualine/lualine.nvim") },
 	{ src = gh("b0o/incline.nvim") },
 	{ src = gh("esmuellert/codediff.nvim") },

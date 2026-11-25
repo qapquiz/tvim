@@ -31,13 +31,6 @@ map({
 -- LSP
 local Snacks = require("snacks")
 map({
-	-- { "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
-	-- {
-	-- 	"gr",
-	-- 	vim.lsp.buf.references,
-	-- 	desc = "References",
-	-- 	nowait = true,
-	-- },
 	{
 		"gI",
 		function()
@@ -64,8 +57,6 @@ map({
 		end,
 		desc = "Goto Source Definition / Implementation",
 	},
-	-- { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
-	-- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
 	{
 		"gd",
 		function()
