@@ -1,44 +1,7 @@
 ---@class utils.lualine
 local M = {}
 
--- Root detection markers (similar to LazyVim)
-local root_patterns = { ".git", "lua", "package.json", "Makefile", "Cargo.toml", "go.mod", "pyproject.toml" }
-
---- Get the current working directory (normalized)
----@return string
-local function get_cwd()
-	return vim.uv.cwd() or vim.fn.getcwd()
-end
-
---- Normalize a path (resolve symlinks, ensure consistent format)
----@param path string
----@return string
-local function normalize(path)
-	if path:sub(1, 1) == "~" then
-		path = vim.fn.expand(path)
-	end
-	path = vim.uv.fs_realpath(path) or path
-	return path:gsub("/$", "")
-end
-
---- Find the project root directory
----@return string
-local function get_root()
-	local path = vim.api.nvim_buf_get_name(0)
-	if path == "" then
-		path = get_cwd()
-	end
-	path = vim.fs.dirname(path)
-
-	-- Try to find root using vim.fs.find
-	local root = vim.fs.find(root_patterns, { path = path, upward = true })[1]
-	if root then
-		return normalize(vim.fs.dirname(root))
-	end
-
-	-- Fallback to cwd
-	return normalize(get_cwd())
-end
+local project = require("craftzdog.utils.project")
 
 ---Buffer path relative to the cwd or the project root, with the filename in its own highlight group.
 ---@param opts? {relative: "cwd"|"root", modified_hl: string?, directory_hl: string?, filename_hl: string?, modified_sign: string?, readonly_icon: string?, length: number?}
@@ -61,11 +24,11 @@ function M.pretty_path(opts)
 		end
 
 		-- Normalize path
-		path = normalize(path)
+		path = project.normalize(path)
 
 		-- Make path relative
-		local cwd = normalize(get_cwd())
-		local root = opts.relative == "root" and get_root() or cwd
+		local cwd = project.normalize(project.get_cwd())
+		local root = opts.relative == "root" and project.get_root() or cwd
 
 		-- Case-insensitive matching on Windows
 		local path_lower = path:lower()
@@ -151,8 +114,8 @@ function M.root_dir(opts)
 	}, opts or {})
 
 	local function get()
-		local cwd = normalize(get_cwd())
-		local root = get_root()
+		local cwd = project.normalize(project.get_cwd())
+		local root = project.get_root()
 		local name = vim.fs.basename(root)
 
 		if root == cwd then
