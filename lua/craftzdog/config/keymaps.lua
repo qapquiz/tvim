@@ -45,11 +45,6 @@ keymap.set("n", "sk", "<C-w>k")
 keymap.set("n", "sj", "<C-w>j")
 keymap.set("n", "sl", "<C-w>l")
 
--- Toggle inlay hints
-keymap.set("n", "<leader>i", function()
-	-- require("craftzdog.lsp").toggleInlayHints()
-end)
-
 -- Yank current file path
 keymap.set("n", "<leader>yf", function()
 	require("craftzdog.utils.editor").yank_relative_path_with_line()
