@@ -102,6 +102,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		sh = { "shfmt" },
 		fish = { "fish_indent" },
+		python = { "ruff_organize_imports", "ruff_format" },
 	},
 	formatters = {
 		oxfmt = {
