@@ -91,7 +91,7 @@ map({
 	},
 	{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 	{
-		"<leader>f",
+		"<leader>fm",
 		function()
 			require("conform").format()
 		end,
