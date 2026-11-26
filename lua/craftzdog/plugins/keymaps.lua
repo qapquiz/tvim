@@ -93,7 +93,24 @@ map({
 	{
 		"<leader>fm",
 		function()
-			require("conform").format()
+			local conform = require("conform")
+			local opts = {}
+			-- conform applies nothing when a formatter without range support, such as
+			-- the ruff import sorter, runs on a selection. A selection uses the
+			-- formatters that take a range, and the whole buffer uses all of them.
+			if vim.api.nvim_get_mode().mode:match("^[vV\x19]") then
+				local all = conform.list_formatters(0)
+				local ranged = {}
+				for _, f in ipairs(all) do
+					if conform.get_formatter_config(f.name).range_args then
+						ranged[#ranged + 1] = f.name
+					end
+				end
+				if #ranged > 0 and #ranged < #all then
+					opts.formatters = ranged
+				end
+			end
+			conform.format(opts)
 		end,
 		desc = "Format code",
 		mode = { "n", "x" },
