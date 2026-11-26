@@ -250,10 +250,12 @@ local function conform()
 		return "<not loaded>"
 	end
 	local out = { formatters_by_ft = c.formatters_by_ft, default_format_opts = c.default_format_opts }
-	for _, name in ipairs({ "oxfmt", "prettierd", "prettier", "stylua", "shfmt", "fish_indent" }) do
-		local okc, cfg = pcall(c.get_formatter_config, name)
-		if okc then
-			out[name] = cfg
+	for _, formatters in pairs(c.formatters_by_ft) do
+		for _, name in ipairs(type(formatters) == "table" and formatters or { formatters }) do
+			local okc, cfg = pcall(c.get_formatter_config, name)
+			if okc then
+				out[name] = cfg
+			end
 		end
 	end
 	return out
