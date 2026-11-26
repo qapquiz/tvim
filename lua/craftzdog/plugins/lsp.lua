@@ -16,6 +16,8 @@ require("mason-tool-installer").setup({
 		"vtsls",
 		"copilot-language-server",
 		"rust-analyzer",
+		"ty",
+		"ruff",
 	},
 	auto_update = false,
 	run_on_start = true,
@@ -42,4 +44,6 @@ vim.lsp.enable({
 	"tailwindcss",
 	"glsl_analyzer",
 	"rust_analyzer",
+	"ty",
+	"ruff",
 })
