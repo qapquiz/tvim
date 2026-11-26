@@ -24,15 +24,34 @@ git clone https://github.com/qapquiz/tvim.git ~/.config/nvim
 
 ```
 init.lua
-after/lsp/          per-server LSP settings
+after/lsp/            per-server LSP settings
 lua/craftzdog/
-  config/           options, keymaps, autocmds, commands, workarounds
-  plugins/          plugin list and per-plugin setup
-  utils/            tabline, lualine helpers, lazygit, editor helpers, icons
+  config/             options, keymaps, autocmds, commands, workarounds
+  plugins/            plugin list and per-plugin setup
+  utils/              project-root lookup, tabline, lualine helpers, lazygit, editor helpers, icons
+scripts/snapshot.lua  dumps the config's observable state
 ```
 
 If `lua/craftzdog/plugins/local.lua` exists, it is loaded as well. Use it for
 machine-specific overrides without committing them.
+
+## Snapshot a change
+
+`scripts/snapshot.lua` writes the config's options, keymaps, commands, plugin
+settings, and helper outputs as JSON. Two runs on the same checkout produce the
+same output, so a diff between two snapshots lists every behavior that differs.
+
+If `~/.config/nvim` is a checkout of this repository, compare two branches:
+
+```sh
+git switch main && nvim --headless -S scripts/snapshot.lua > before.json
+git switch my-branch && nvim --headless -S scripts/snapshot.lua > after.json
+diff before.json after.json
+```
+
+Run both commands from the same directory. The output also depends on the
+plugins installed in `~/.local/share/nvim`, so compare snapshots from one
+machine.
 
 ## Syncing with upstream
 

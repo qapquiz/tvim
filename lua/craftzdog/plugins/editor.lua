@@ -28,13 +28,6 @@ require("blink.cmp").setup({
 		},
 	},
 
-	-- sources = {
-	--   -- adding any nvim-cmp sources here will enable them
-	--   -- with blink.compat
-	--   compat = {},
-	--   default = { "lsp", "path", "snippets", "buffer" },
-	-- },
-
 	cmdline = {
 		enabled = true,
 		keymap = {

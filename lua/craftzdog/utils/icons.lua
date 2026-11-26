@@ -1,21 +1,6 @@
 -- icons used by other plugins
 -- stylua: ignore
 local M = {
-  misc = {
-    dots = "󰇘",
-  },
-  ft = {
-    octo = " ",
-    gh = " ",
-    ["markdown.gh"] = " ",
-  },
-  dap = {
-    Stopped             = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
-    Breakpoint          = " ",
-    BreakpointCondition = " ",
-    BreakpointRejected  = { " ", "DiagnosticError" },
-    LogPoint            = ".>",
-  },
   diagnostics = {
     Error = " ",
     Warn  = " ",

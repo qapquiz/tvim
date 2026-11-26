@@ -7,11 +7,6 @@ return {
 				checkThirdParty = false,
 				library = { vim.env.VIMRUNTIME },
 			},
-			misc = {
-				parameters = {
-					-- "--log-level=trace",
-				},
-			},
 			hint = {
 				enable = true,
 				setType = false,
@@ -28,7 +23,6 @@ return {
 			},
 			diagnostics = {
 				disable = { "incomplete-signature-doc", "trailing-space" },
-				-- enable = false,
 				groupSeverity = {
 					strong = "Warning",
 					strict = "Warning",

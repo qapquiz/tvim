@@ -1,42 +1,7 @@
 ---@class utils.editor
 local M = {}
 
--- Root detection markers
-local root_patterns = { ".git", "lua", "package.json", "Makefile", "Cargo.toml", "go.mod", "pyproject.toml" }
-
---- Get the current working directory
----@return string
-local function get_cwd()
-	return vim.uv.cwd() or vim.fn.getcwd()
-end
-
---- Normalize a path (resolve symlinks, ensure consistent format)
----@param path string
----@return string
-local function normalize(path)
-	if path:sub(1, 1) == "~" then
-		path = vim.fn.expand(path)
-	end
-	path = vim.uv.fs_realpath(path) or path
-	return path:gsub("/$", "")
-end
-
---- Find the project root directory
----@return string
-local function get_root()
-	local path = vim.api.nvim_buf_get_name(0)
-	if path == "" then
-		path = get_cwd()
-	end
-	path = vim.fs.dirname(path)
-
-	local root = vim.fs.find(root_patterns, { path = path, upward = true })[1]
-	if root then
-		return normalize(vim.fs.dirname(root))
-	end
-
-	return normalize(get_cwd())
-end
+local project = require("craftzdog.utils.project")
 
 --- Check if a file exists
 ---@param filepath string
@@ -48,7 +13,7 @@ end
 
 --- Open package.json in a floating window with 80% width and height
 function M.open_package_json()
-	local root = get_root()
+	local root = project.get_root()
 	local package_json = root .. "/package.json"
 
 	if not file_exists(package_json) then
@@ -106,7 +71,7 @@ function M.copy_as_codeblock()
 		return
 	end
 
-	local root = get_root()
+	local root = project.get_root()
 	local relative = filepath:sub(#root + 2)
 	local ft_to_lang = {
 		typescriptreact = "tsx",
