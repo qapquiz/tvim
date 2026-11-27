@@ -121,11 +121,11 @@ map({
 map({
 	{ "<leader>cl", Snacks.picker.lsp_config, desc = "Lsp Info" },
 	{ "<leader>cR", Snacks.rename.rename_file, desc = "Rename File" },
-	{ ";f", Snacks.picker.files, desc = "Find files" },
-	{ ";r", Snacks.picker.grep, desc = "Live grep" },
+	{ "<leader>ff", Snacks.picker.files, desc = "Find files" },
+	{ "<leader>fw", Snacks.picker.grep, desc = "Live grep" },
 	{ ";;", Snacks.picker.resume, desc = "Resume picker" },
 	{
-		"\\\\",
+		"<leader>fb",
 		function()
 			Snacks.picker.buffers({
 				confirm = function(picker, item)
